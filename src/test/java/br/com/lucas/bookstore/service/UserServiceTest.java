@@ -1,0 +1,51 @@
+package br.com.lucas.bookstore.service;
+
+import br.com.lucas.bookstore.model.Client;
+import br.com.lucas.bookstore.model.User;
+import br.com.lucas.bookstore.repository.UserRepository;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+@DisplayName("UserService")
+public class UserServiceTest {
+    @Value("${api.profiles.images.profile}")
+    private String url;
+    @Autowired
+   private UserService userService;
+    @MockBean
+    private UserRepository userRepository;
+
+    @Test
+    public void checkEmailExistsTest(){
+
+
+        var cliente = new Client(  "lucas@email.com", "password123","nome",url);
+
+        try {
+            userService.checkEmailExists(cliente.getEmail());
+            Assertions.fail();
+        }catch (Exception e){
+            Assertions.assertEquals(e.getMessage(),"O e-mail já existe no sistema.");
+        }
+
+
+    }
+
+
+
+    @BeforeEach
+    public void setup() {
+        var user = new User(  "lucas@email.com", "password123","nome",url);
+        Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(user);
+
+
+
+    }
+
+}
