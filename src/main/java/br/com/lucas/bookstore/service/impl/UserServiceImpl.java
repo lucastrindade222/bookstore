@@ -4,7 +4,9 @@ import br.com.lucas.bookstore.repository.UserRepository;
 import br.com.lucas.bookstore.service.UserService;
 import br.com.lucas.bookstore.service.exception.UniqueFieldException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
@@ -17,4 +19,7 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
+
+
 }

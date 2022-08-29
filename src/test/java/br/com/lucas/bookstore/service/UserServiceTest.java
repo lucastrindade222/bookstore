@@ -1,5 +1,6 @@
 package br.com.lucas.bookstore.service;
 
+import br.com.lucas.bookstore.config.AplicationConfingTest;
 import br.com.lucas.bookstore.model.Client;
 import br.com.lucas.bookstore.model.User;
 import br.com.lucas.bookstore.repository.UserRepository;
@@ -12,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-@DisplayName("UserService")
-public class UserServiceTest {
+@DisplayName("UserServiceImpl")
+public class UserServiceTest  extends AplicationConfingTest {
     @Value("${api.profiles.images.profile}")
     private String url;
     @Autowired
-   private UserService userService;
+    private UserService userService;
     @MockBean
     private UserRepository userRepository;
 
@@ -25,10 +26,9 @@ public class UserServiceTest {
     public void checkEmailExistsTest(){
 
 
-        var cliente = new Client(  "lucas@email.com", "password123","nome",url);
 
         try {
-            userService.checkEmailExists(cliente.getEmail());
+            userService.checkEmailExists("lucas@email.com");
             Assertions.fail();
         }catch (Exception e){
             Assertions.assertEquals(e.getMessage(),"O e-mail já existe no sistema.");
@@ -36,6 +36,14 @@ public class UserServiceTest {
 
 
     }
+    @Test
+    public  void teste(){
+
+    }
+
+
+
+
 
 
 
